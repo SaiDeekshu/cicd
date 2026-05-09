@@ -1,4 +1,3 @@
-```groovy id="p4m7x2"
 pipeline {
 
     agent any
@@ -6,55 +5,28 @@ pipeline {
     stages {
 
         stage('Clone Repository') {
-
             steps {
-
                 git 'https://github.com/SaiDeekshu/cicd.git'
             }
         }
 
         stage('Build Docker Image') {
-
             steps {
-
-                sh 'docker build -t cicd .'
+                bat 'docker build -t cicd .'
             }
         }
 
         stage('Stop Old Container') {
-
             steps {
-
-                sh 'docker stop cicd-container || true'
-                sh 'docker rm cicd-container || true'
+                bat 'docker stop cicd-container || exit 0'
+                bat 'docker rm cicd-container || exit 0'
             }
         }
 
         stage('Run New Container') {
-
             steps {
-
-                sh 'docker run -d -p 3000:3000 --name cicd-container cicd'
+                bat 'docker run -d -p 3000:3000 --name cicd-container cicd'
             }
         }
     }
-
-    post {
-
-        success {
-
-            echo 'Pipeline executed successfully'
-        }
-
-        failure {
-
-            echo 'Pipeline failed'
-        }
-
-        always {
-
-            echo 'Pipeline execution completed'
-        }
-    }
 }
-```
