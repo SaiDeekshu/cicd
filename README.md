@@ -191,8 +191,4 @@ Displays running Docker containers.
 
 ---
 
-## Jenkins Pipeline Success
 
-```md
-![Jenkins Pipeline](images/jenkins-pipeline-success.png)
-```
